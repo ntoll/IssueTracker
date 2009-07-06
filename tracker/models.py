@@ -99,26 +99,3 @@ class Ticket(models.Model):
         ordering = ['-updated_on','-created_on']
         verbose_name = _('Ticket')
         verbose_name_plural = _('Tickets')
-
-class Comment(models.Model):
-    """
-    Represents a comment attached to a ticket
-    """
-    ticket = models.ForeignKey(Ticket)
-    body = models.TextField(
-            _("Comment")
-            )
-    created_by = models.ForeignKey(
-            User,
-            related_name='comments')
-    created_on = models.DateTimeField(auto_now_add=True)
-
-    def __unicode__(self):
-        return u'%s (%s): %s'%(self.created_by.username,
-                self.created_on.strftime('%c'),
-                self.body)
-
-    class Meta:
-        ordering = ['created_on',]
-        verbose_name = _('Comment')
-        verbose_name_plural = _('Comments')
