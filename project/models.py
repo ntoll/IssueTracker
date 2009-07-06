@@ -38,6 +38,10 @@ class Project(models.Model):
             _('Slug field'),
             help_text=_('To be used in the URL')
             )
+    owners = models.ManyToManyField(
+            User,
+            related_name = 'projects_owned'
+            )
 
     def __unicode__(self):
         return self.name
@@ -63,6 +67,10 @@ class Component(models.Model):
     slug = models.SlugField(
             _('Slug field'),
             help_text=_('To be used in the URL')
+            )
+    owners = models.ManyToManyField(
+            User,
+            related_name = 'components_owned'
             )
 
     def __unicode__(self):
