@@ -1,0 +1,987 @@
+[
+  {
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "admin", 
+      "first_name": "Admin", 
+      "last_name": "User", 
+      "is_active": true, 
+      "is_superuser": true, 
+      "is_staff": true, 
+      "last_login": "2009-07-06 15:44:41", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "sha1$2fe8e$5c22aa2c37fcf7b3e23f6155d0acd4852dcba996", 
+      "email": "admin@acme.com", 
+      "date_joined": "2009-07-06 15:44:26"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "alice", 
+      "first_name": "Alice", 
+      "last_name": "Smith", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": true, 
+      "last_login": "2009-07-06 15:45:05", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "sha1$cd4bb$320112d9a75c02393b6415e5114dec5b1e00a24b", 
+      "email": "alice.smith@acme.com", 
+      "date_joined": "2009-07-06 15:45:05"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "bob", 
+      "first_name": "Bob", 
+      "last_name": "Jones", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": true, 
+      "last_login": "2009-07-06 15:45:27", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "sha1$07b56$369eea1a1e49d6faaae1022746cb6a426a2a4a97", 
+      "email": "bob.jones@acme.com", 
+      "date_joined": "2009-07-06 15:45:27"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "charlie", 
+      "first_name": "Charlie", 
+      "last_name": "Black", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": true, 
+      "last_login": "2009-07-06 15:45:50", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "sha1$aa3c2$08b7e98856fa0ebcee0276043c538dc9eb771618", 
+      "email": "charlie.black@acme.com", 
+      "date_joined": "2009-07-06 15:45:50"
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "dave", 
+      "first_name": "Dave", 
+      "last_name": "White", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": true, 
+      "last_login": "2009-07-06 15:46:12", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "sha1$fda54$edce7f24612bc5eea22ce1916f8496e44ac0f579", 
+      "email": "dave.white@acme.com", 
+      "date_joined": "2009-07-06 15:46:12"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "sites.site", 
+    "fields": {
+      "domain": "issue-tracker.com", 
+      "name": "issue-tracker.com"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "workflow.role", 
+    "fields": {
+      "name": "Assignee", 
+      "description": "Person(s) given the task to resolve a ticket."
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "workflow.role", 
+    "fields": {
+      "name": "Manager", 
+      "description": "A person with authority to review, approve or reject a solution to a ticket."
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "workflow.role", 
+    "fields": {
+      "name": "Submitter", 
+      "description": "The person who originated the ticket"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "workflow.workflow", 
+    "fields": {
+      "status": 1, 
+      "description": "A bug or other problem has been reported and this workflow defines how to research and resolve such a ticket.", 
+      "cloned_from": null, 
+      "created_by": 1, 
+      "created_on": "2009-07-06 15:58:04", 
+      "slug": "bug_handler", 
+      "name": "Bug Handler"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "workflow.workflow", 
+    "fields": {
+      "status": 1, 
+      "description": "A client or member of the internal test team has requested a new feature or enhancement", 
+      "cloned_from": null, 
+      "created_by": 1, 
+      "created_on": "2009-07-06 15:58:45", 
+      "slug": "feature_request_handler", 
+      "name": "Feature / Enhancement Request Handler"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 86400, 
+      "name": "Bug / Problem Reported", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 1, 
+      "description": "The originator has submitted a ticket but it has not yet been assigned to a member of staff.", 
+      "is_end_state": false, 
+      "is_start_state": true, 
+      "estimation_value": 1
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 86400, 
+      "name": "Feature Requested", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 2, 
+      "description": "A new feature has been requested as part of Project X", 
+      "is_end_state": false, 
+      "is_start_state": true, 
+      "estimation_value": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 86400, 
+      "name": "Research Bug / Problem", 
+      "roles": [
+        3, 
+        1
+      ], 
+      "workflow": 1, 
+      "description": "The assigned member of staff attempts to reproduce and detail the causes / affects of the ticket.", 
+      "is_end_state": false, 
+      "is_start_state": false, 
+      "estimation_value": 0
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 604800, 
+      "name": "Solution Proposed", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 1, 
+      "description": "A solution for this ticket has been proposed and is currently under review pending deployment.", 
+      "is_end_state": false, 
+      "is_start_state": false, 
+      "estimation_value": 1
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 86400, 
+      "name": "Awaiting Feedback", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 1, 
+      "description": "A request has been made to the originator or other third party thus blocking further work on this ticket", 
+      "is_end_state": false, 
+      "is_start_state": false, 
+      "estimation_value": 0
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 604800, 
+      "name": "Feature Assessment", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 2, 
+      "description": "The new feature request is being assessed for potential inclusion in a future version of Project X", 
+      "is_end_state": false, 
+      "is_start_state": false, 
+      "estimation_value": 2
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 86400, 
+      "name": "On Hold", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 1, 
+      "description": "The bug / problem ticket has been put on hold due to higher priorities", 
+      "is_end_state": false, 
+      "is_start_state": false, 
+      "estimation_value": 0
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 604800, 
+      "name": "Requirements Capture", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 2, 
+      "description": "The new feature has been approved and formal specification and requirements capture is underway.", 
+      "is_end_state": false, 
+      "is_start_state": false, 
+      "estimation_value": 3
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 86400, 
+      "name": "In development", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 2, 
+      "description": "The new feature is in development", 
+      "is_end_state": false, 
+      "is_start_state": false, 
+      "estimation_value": 0
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 86400, 
+      "name": "Feature Assessment On Hold", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 2, 
+      "description": "The new feature is on hold.", 
+      "is_end_state": false, 
+      "is_start_state": false, 
+      "estimation_value": 0
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 86400, 
+      "name": "In Testing", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 2, 
+      "description": "The feature has been developed and is currently in testing just prior to deployment.", 
+      "is_end_state": false, 
+      "is_start_state": false, 
+      "estimation_value": 0
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 86400, 
+      "name": "Unable to Fix", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 1, 
+      "description": "After researching this ticket it was found that there was no solution.", 
+      "is_end_state": true, 
+      "is_start_state": false, 
+      "estimation_value": 0
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 86400, 
+      "name": "Cannot Reproduce", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 1, 
+      "description": "Upon researching this ticket it was found we cannot re-produce the bug / problem described therein.", 
+      "is_end_state": true, 
+      "is_start_state": false, 
+      "estimation_value": 0
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 86400, 
+      "name": "Will not solve", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 1, 
+      "description": "After researching this ticket it was decided that we cannot, or do not have to solve the bug or problem described therein.", 
+      "is_end_state": true, 
+      "is_start_state": false, 
+      "estimation_value": 0
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 86400, 
+      "name": "Deployed", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 1, 
+      "description": "The proposed solution has been accepted / tested and has been deployed into the product.", 
+      "is_end_state": true, 
+      "is_start_state": false, 
+      "estimation_value": 0
+    }
+  }, 
+  {
+    "pk": 16, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 86400, 
+      "name": "Deployed", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 2, 
+      "description": "The new feature has been created, tested and is now in the deployed version of Project X", 
+      "is_end_state": true, 
+      "is_start_state": false, 
+      "estimation_value": 0
+    }
+  }, 
+  {
+    "pk": 17, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 86400, 
+      "name": "Feature Rejected", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 2, 
+      "description": "After comprehensive assessment it was felt this feature was not required.", 
+      "is_end_state": true, 
+      "is_start_state": false, 
+      "estimation_value": 0
+    }
+  }, 
+  {
+    "pk": 18, 
+    "model": "workflow.state", 
+    "fields": {
+      "estimation_unit": 86400, 
+      "name": "Cancelled", 
+      "roles": [
+        3, 
+        2, 
+        1
+      ], 
+      "workflow": 2, 
+      "description": "The new feature was partially completed but due to constraints was eventually cancelled", 
+      "is_end_state": true, 
+      "is_start_state": false, 
+      "estimation_value": 0
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 1, 
+      "to_state": 2, 
+      "name": "Claim bug / problem", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 1
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 2, 
+      "to_state": 3, 
+      "name": "Cannot Fix", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 2, 
+      "to_state": 4, 
+      "name": "Cannot Reproduce", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 1
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 2, 
+      "to_state": 5, 
+      "name": "Reject", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 1
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 2, 
+      "to_state": 8, 
+      "name": "Request further information", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 1
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 8, 
+      "to_state": 2, 
+      "name": "Respond to Information Request", 
+      "roles": [
+        2, 
+        1
+      ], 
+      "workflow": 1
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 2, 
+      "to_state": 6, 
+      "name": "Propose Solution", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 1
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 6, 
+      "to_state": 2, 
+      "name": "Reject proposed solution", 
+      "roles": [
+        2
+      ], 
+      "workflow": 1
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 6, 
+      "to_state": 7, 
+      "name": "Accept proposed solution", 
+      "roles": [
+        2
+      ], 
+      "workflow": 1
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 2, 
+      "to_state": 11, 
+      "name": "Hold", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 1
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 11, 
+      "to_state": 2, 
+      "name": "Re-start research", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 1
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 6, 
+      "to_state": 11, 
+      "name": "Hold", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 1
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 11, 
+      "to_state": 6, 
+      "name": "Re-propose solution", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 1
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 9, 
+      "to_state": 10, 
+      "name": "Claim feature request", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 2
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 10, 
+      "to_state": 17, 
+      "name": "Reject feature", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 2
+    }
+  }, 
+  {
+    "pk": 16, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 10, 
+      "to_state": 12, 
+      "name": "Feature Approved", 
+      "roles": [
+        2
+      ], 
+      "workflow": 2
+    }
+  }, 
+  {
+    "pk": 17, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 12, 
+      "to_state": 13, 
+      "name": "Start development", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 2
+    }
+  }, 
+  {
+    "pk": 18, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 13, 
+      "to_state": 12, 
+      "name": "Return to requirements capture", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 2
+    }
+  }, 
+  {
+    "pk": 19, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 13, 
+      "to_state": 15, 
+      "name": "Start Testing", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 2
+    }
+  }, 
+  {
+    "pk": 20, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 15, 
+      "to_state": 13, 
+      "name": "Return to development / fix test problems", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 2
+    }
+  }, 
+  {
+    "pk": 21, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 15, 
+      "to_state": 16, 
+      "name": "Deploy", 
+      "roles": [
+        2
+      ], 
+      "workflow": 2
+    }
+  }, 
+  {
+    "pk": 22, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 10, 
+      "to_state": 14, 
+      "name": "Hold", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 2
+    }
+  }, 
+  {
+    "pk": 23, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 14, 
+      "to_state": 10, 
+      "name": "Return to feature assessment", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 2
+    }
+  }, 
+  {
+    "pk": 24, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 12, 
+      "to_state": 18, 
+      "name": "Cancel Requirements Capture", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 2
+    }
+  }, 
+  {
+    "pk": 25, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 13, 
+      "to_state": 18, 
+      "name": "Cancel Development", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 2
+    }
+  }, 
+  {
+    "pk": 26, 
+    "model": "workflow.transition", 
+    "fields": {
+      "from_state": 15, 
+      "to_state": 18, 
+      "name": "Cancel Testing", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 2
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "workflow.eventtype", 
+    "fields": {
+      "name": "Meeting", 
+      "description": "A meeting involving various stake-holders in Project X"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "workflow.eventtype", 
+    "fields": {
+      "name": "Code Review", 
+      "description": "A formal code review to approve (or not) a technological solution to a ticket"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "workflow.eventtype", 
+    "fields": {
+      "name": "Deployment", 
+      "description": "The delivery of new features to a server."
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "workflow.eventtype", 
+    "fields": {
+      "name": "Assignment", 
+      "description": "A ticket has been (re) assigned to a user."
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "workflow.event", 
+    "fields": {
+      "is_mandatory": false, 
+      "name": "Re-assign Ticket", 
+      "roles": [
+        3, 
+        2
+      ], 
+      "workflow": 1, 
+      "state": 2, 
+      "event_types": [
+        4
+      ], 
+      "description": "The ticket has been re-assigned to another person."
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "workflow.event", 
+    "fields": {
+      "is_mandatory": false, 
+      "name": "Review Proposed Solution", 
+      "roles": [
+        2
+      ], 
+      "workflow": 1, 
+      "state": 6, 
+      "event_types": [
+        2
+      ], 
+      "description": "To take part in a code review."
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "project.project", 
+    "fields": {
+      "owners": [
+        2
+      ], 
+      "slug": "projectx", 
+      "name": "Project X", 
+      "description": "A super-secret web application that will revolutionise the way people see the Internet."
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "project.component", 
+    "fields": {
+      "owners": [
+        2
+      ], 
+      "slug": "eagle", 
+      "name": "Eagle Admin Interface", 
+      "description": "\"Eagle\" is the administrative interface associated with Project X"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "project.component", 
+    "fields": {
+      "owners": [
+        5
+      ], 
+      "slug": "hawk", 
+      "name": "Hawk Database Backend", 
+      "description": "\"Hawk\" is the secret FluidDB based datastore. A non-relational aspect to Project X."
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "project.component", 
+    "fields": {
+      "owners": [
+        3
+      ], 
+      "slug": "peregrin", 
+      "name": "Merlin Workflow Engine", 
+      "description": "\"Merlin\" is the workflow engine at the heart of Project X"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "project.component", 
+    "fields": {
+      "owners": [
+        4
+      ], 
+      "slug": "peregrin", 
+      "name": "Peregrin Interface Front-End", 
+      "description": "\"Peregrin\" is the client facing UI toolkit within Project X."
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "tracker.tickettype", 
+    "fields": {
+      "workflow": 1, 
+      "name": "Bug Report", 
+      "description": "Describes a bug or problem encountered in Project X"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "tracker.tickettype", 
+    "fields": {
+      "workflow": 2, 
+      "name": "Enhancement", 
+      "description": "An enhancement is required to an existing part of Project X"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "tracker.tickettype", 
+    "fields": {
+      "workflow": 2, 
+      "name": "New Feature Request", 
+      "description": "A new feature or suggestion for Project X"
+    }
+  }
+]

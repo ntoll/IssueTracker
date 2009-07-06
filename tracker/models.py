@@ -82,7 +82,9 @@ class Ticket(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     assigned_to = models.ForeignKey(
             User,
-            related_name='tickets_assigned')
+            related_name='tickets_assigned',
+            limit_choices_to={'is_staff': True}
+            )
 
     def __unicode__(self):
         return self.name
@@ -95,8 +97,8 @@ class Ticket(models.Model):
 
     class Meta:
         ordering = ['-updated_on','-created_on']
-        verbose_name = _('Component')
-        verbose_name_plural = _('Components')
+        verbose_name = _('Ticket')
+        verbose_name_plural = _('Tickets')
 
 class Comment(models.Model):
     """
