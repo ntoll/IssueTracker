@@ -1,10 +1,38 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load comments %}
 {% block title %}{% trans 'View Ticket'%}{% endblock %}
 {% block jquery_ready %}
 $("#id_ticket_type").focus();
 {% endblock %}
 {% block content %}
+<p><big>{% trans "Ticket Number:" %} {{ticket.id}}</big></p>
 <h1>{{ticket.summary}}</h1>
-<p>{{ticket.description}}</p>
+<p>{{ticket.description|escape|linebreaks}}</p>
+<h2>{% trans "Comments" %}</h2>
+{% get_comment_list for tracker.ticket ticket.id as comment_list %}
+{% if comment_list %}
+{% for comment in comment_list %}
+<p><strong>{{comment.user.get_full_name}}</strong> {% trans "commented, on" %}
+{{ comment.submit_date|date:"F j, Y" }} {% trans "at" %} 
+{{ comment.submit_date|date:"P" }}:<br/>
+{{ comment.comment|escape|urlizetrunc:40|linebreaks }}
+</p>
+{% endfor %}
+{% else %}
+<p>{% trans "There are no comments associated with this ticket." %}</p>
+{% endif %}
+<h3>{% trans "Post a Comment" %}</h3>
+{% get_comment_form for tracker.ticket ticket.id as form %}
+<form action="/comments/post/" method="post">
+    <p>{{form.comment}}</p>
+    {{form.content_type}}
+    {{form.object_pk}}
+    {{form.timestamp}}
+    {{form.security_hash}}
+    <input type="hidden" name="next" value="/ticket/{{ticket.id}}" id="id_next"/>
+    <p><input type="submit" name="post" value="Post Comment" /> |
+    <a href="/">{% trans "Home" %}</a> |
+    <a href="/tickets">{% trans "My Tickets" %}</a></p>
+</form>
 {% endblock %}
