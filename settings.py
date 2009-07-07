@@ -87,6 +87,10 @@ INSTALLED_APPS = (
     'tracker',
 )
 
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_SUBJECT_PREFIX = '[IssueTracker]'
+
 # Path to graphviz's dot command
 GRAPHVIZ_DOT_COMMAND = 'dot'
 

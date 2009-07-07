@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Login'%}{% endblock %}
+{% block jquery_ready %}
+$("#id_username").focus(); 
+{% endblock %}
+{% block content %}
+<h1>Login</h1>
+<p>{% blocktrans %}
+Please enter your username and password into the form below:
+{% endblocktrans %}</p>
+{% if form.errors %}
+<p><span class="red">{% blocktrans %}
+Your username and password didn't match. Please try again.
+{% endblocktrans %}</span></p>
+{% endif %}
+<form method="POST" action="{% url django.contrib.auth.views.login %}">
+    {{form.as_p}}
+    <input type="submit" value="{% trans 'login' %}" />
+    <input type="hidden" name="next" value="{{ next }}" />
+</form>
+<p><a href="password/reset">{% trans "Forgotten Password?" %}</a> | 
+<a href="/">{% trans "Home" %}</a></p>
+{% endblock %}

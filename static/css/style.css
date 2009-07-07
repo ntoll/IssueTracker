@@ -16,6 +16,11 @@ textarea, input {
     font-family:arial,sans;
     font-size:1em;
 }
+form label {
+    font-weight: bold;
+    padding-right: 10px;
+    clear: both;
+}
 a:link {
     color:#024589;
     text-decoration:none;
@@ -90,7 +95,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
 }
 #content {
-    font-size:1.2em;
+    font-size:1.4em;
     padding-bottom:1em;
     padding-top:1em;
     text-align:left;
@@ -104,4 +109,23 @@ h1, h2, h3, h4, h5, h6 {
     padding-top:1em;
     text-align:center;
     text-transform:lowercase;
+}
+#fading_images {
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px
+}
+/* Colour related styling */
+.red {
+    color: red;
+}
+.errorlist {
+    color: red;
+}
+.message {
+    border:4px solid #00CC00;
+    font-size:1.2em;
+    margin:8px 8px 0;
+    padding:2px;
+    text-align:center;
 }

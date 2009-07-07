@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Frequently Asked Questions'%}{% endblock %}
+{% block content %}
+<h1>{% trans "Frequently Asked Questions" %}</h1>
+<ul>
+    <li><a href="#1">{% trans "What is IssueTracker?" %}</a></li>
+    <li><a href="#2">{% trans "Who wrote IssueTracker?" %}</a></li>
+    <li><a href="#3">{% trans "Why write yet another issue tracker?" %}</a></li>
+    <li><a href="#4">{% trans "How much does it cost?" %}</a></li>
+    <li><a href="#5">{% trans "What about the workflow engine?" %}</a></li>
+    <li><a href="#6">{% trans "I want to give feedback! How?" %}</a></li>
+</ul>
+<h2 id="1">{% trans "What is IssueTracker?" %}</h2>
+<p>{% blocktrans %}IssueTracker is a <strong>very</strong> simple issue tracking
+application written using the <a href="http://www.djangoproject.com/">Django</a>
+web framework and a bespoke workflow engine.
+{% endblocktrans %}</p>
+<h2 id="2">{% trans "Who wrote IssueTracker?" %}</h2>
+<p>{% blocktrans %}<a href="http://ntoll.org">Nicholas Tollervey</a> wrote this
+software over a period of two days as an academic exercise.
+{% endblocktrans %}</p>
+<h2 id="3">{% trans "Why write yet another issue tracker?" %}</h2>
+<p>{% blocktrans %}Like I just said, as an academic exercise. My aim being to
+use the workflow engine "in anger" so I get a feel for how helpful it is to code
+against. Hopefully, the pain I encountered when writing this will inform me when
+updating the project.
+{% endblocktrans %}</p>
+<h2 id="4">{% trans "How much does it cost?" %}</h2>
+<p>{% blocktrans %}Nothing. :-)
+{% endblocktrans %}</p>
+<h2 id="5">{% trans "What about the workflow engine?" %}</h2>
+<p>{% blocktrans %}The workflow engine is a generic application that I can
+"drop in" to any Django based web-application. The only thing needed to finish
+it off is a set of forms and UI views to make creating and editing workflow
+easier (rather than having to use the Django admin area).
+{% endblocktrans %}</p>
+<h2 id="6">{% trans "I want to give feedback! How?" %}</h2>
+<p>{% blocktrans %}My contact details can be found here: <a
+    href="http://ntoll.org/contact">http://ntoll.org/contact</a>.
+{% endblocktrans %}</p>
+<p><a href="/">{% trans "Home" %}</a></p>
+{% endblock %}

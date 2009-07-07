@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Signup Complete'%}{% endblock %}
+{% block content %}
+<h1>Signup Complete</h1>
+<p>{% blocktrans %}
+We have sent you instructions to the email address you have just provided
+explaining how to confirm your account and set your password.
+{% endblocktrans %}</p>
+<p><a href="/">{% trans "Home" %}</a></p>
+{% endblock %}
+

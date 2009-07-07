@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{%block title %}{% trans "Register New User"%}{% endblock %}
+{% block jquery_ready %}
+$("#id_username").focus(); 
+{% endblock %}
+{% block content %}
+<h1>{% trans "Register New User"%}</h1>
+<p>{%blocktrans%}Please enter your details below. 
+{%endblocktrans%}</p>
+<form method="POST" action="/signup">
+    {{form.non_field_errors}}
+    {{form.as_p}}
+    <p><input type="submit" value="{% trans "Submit"%}"/> |
+    <a href="/">{% trans "Home" %}
+    <input type="hidden" name="next" value="{{next}}"/></p>
+</form>
+{% endblock %}

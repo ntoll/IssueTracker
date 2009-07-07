@@ -1,0 +1,16 @@
+ul#portfolio li img{
+	border: 1px solid #ccc;
+	padding: 4px;
+}
+
+
+.fade{
+	margin-bottom: 2em;
+}
+
+.fade p{
+	margin-bottom: 2em;
+	text-align: center;
+	width: 100%;
+	background: #fff;
+}

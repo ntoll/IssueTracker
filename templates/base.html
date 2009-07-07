@@ -17,9 +17,6 @@
                 {% include "menu.html" %}
                 {% endblock %}
                 </div> <!-- end menu -->
-            {% if user.is_authenticated %}
-            {% trans "You are logged in as"%} {{user.get_full_name}} 
-            {% endif %}
             </div> <!-- end header -->
             {% endblock %}
             {% if messages %}
@@ -30,6 +27,7 @@
             {% endfor %}
             {% endif %}
             <div id="content">
+            {% block content %}
                 <h1>Test Card</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
                 do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -91,6 +89,7 @@
                         <td><a href="#">link</a></td>
                     </tr>
                 </table>
+            {% endblock %}
             </div>
             <div id="footer">
                 <p>{% blocktrans %}

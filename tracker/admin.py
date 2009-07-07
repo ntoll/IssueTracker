@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from django.contrib import admin
-from models import TicketType, Ticket, Comment 
+from models import TicketType, Ticket
 
 class TicketTypeAdmin(admin.ModelAdmin):
     """
@@ -20,14 +20,5 @@ class TicketAdmin(admin.ModelAdmin):
     save_on_top = True
     list_filter = ['project', 'component', 'ticket_type', 'assigned_to']
 
-class CommentAdmin(admin.ModelAdmin):
-    """
-    Comment administration
-    """
-    search_fields = ['body',] 
-    save_on_top = True
-    list_filter = ['created_by',]
-
 admin.site.register(TicketType, TicketTypeAdmin)
 admin.site.register(Ticket, TicketAdmin)
-admin.site.register(Comment, CommentAdmin)

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Login'%}{% endblock %}
+{% block javascript_includes %}<script src="/static/javascript/jquery.innerfade.js" type="text/javascript"></script>
+<style type="text/css" media="screen, projection">
+@import url(/static/css/jq_fade.css);
+</style>{% endblock %}
+{% block jquery_ready %}
+	$('ul#portfolio').innerfade({
+						speed: 1000,
+						timeout: 5000,
+						type: 'sequence',
+						containerheight: '220px'
+					});
+{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+<h1>{% trans "Hello" %} {{ user.first_name }}!</h1>
+<p>{% blocktrans %}
+Welcome to Bugz (an issue tracker)...
+{% endblocktrans %}</p>
+{% else %}
+<h1>{% trans "Welcome to Bugz!" %}</h1>
+    <div id="fading_images">
+       <ul id="portfolio" style="list-style-type: none;">					
+					<li>
+						<a href="#"><img src="/static/images/screen1.jpg" alt="An Example Image" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="/static/images/screen2.jpg" alt="An Example Image" /></a>
+					</li>					
+					<li>
+						<a href="#"><img src="/static/images/screen3.jpg" alt="An Example Image" /></a>
+					</li>					
+					<li>
+						<a href="#"><img src="/static/images/screen4.jpg" alt="An Example Image" /></a>
+					</li>		
+       </ul>
+    </div>
+<h2>{% trans "What Next..?" %}</h2>
+<ul>
+    <li><a href="/faq">{% trans "Find out more" %}</a> - 
+    {% trans "be amazed at the Zen like simplicity" %}</li>
+    <li><a href="/signup">{% trans "Signup for an account" %}</a> -
+    {% trans "start reporting issues" %}</li>
+    <li><a href="/login">{% trans "Login" %}</a> -
+    {% trans "just report your issues..!" %}</li>
+</ul>
+{% endif %}
+{% endblock %}
