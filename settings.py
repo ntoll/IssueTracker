@@ -109,8 +109,8 @@ NEW_TICKET_EMAIL_TEMPLATE = 'new_ticket_email.html'
 
 # Role defaults
 ROLE_SUBMITTER = 1
-ROLE_ASSIGNEE = 2
-ROLE_MANAGER = 3
+ROLE_ASSIGNEE = 3 
+ROLE_MANAGER = 2
 
 # Including a settings_local allows you to override these settings with
 # something more appropriate for your machine

@@ -548,8 +548,8 @@
       "to_state": 2, 
       "name": "Respond to Information Request", 
       "roles": [
-        2, 
-        1
+        3, 
+        2 
       ], 
       "workflow": 1
     }
@@ -576,6 +576,7 @@
       "to_state": 2, 
       "name": "Reject proposed solution", 
       "roles": [
+        3,
         2
       ], 
       "workflow": 1
@@ -589,6 +590,7 @@
       "to_state": 7, 
       "name": "Accept proposed solution", 
       "roles": [
+        3,
         2
       ], 
       "workflow": 1
@@ -686,6 +688,7 @@
       "to_state": 12, 
       "name": "Feature Approved", 
       "roles": [
+        3,
         2
       ], 
       "workflow": 2
@@ -755,6 +758,7 @@
       "to_state": 16, 
       "name": "Deploy", 
       "roles": [
+        3,
         2
       ], 
       "workflow": 2

@@ -44,6 +44,9 @@ $("#id_ticket_type").focus();
 {% else %}
 <p>{% trans "There are no comments associated with this ticket." %}</p>
 {% endif %}
+{% if ticket.workflow_manager.completed_on %}
+<h3>{% trans "Comments closed"%}</h3>
+{% else %}
 <h3>{% trans "Post a Comment" %}</h3>
 {% get_comment_form for tracker.ticket ticket.id as form %}
 <form action="/comments/post/" method="post">
@@ -57,4 +60,5 @@ $("#id_ticket_type").focus();
     <a href="/">{% trans "Home" %}</a> |
     <a href="/tickets">{% trans "My Tickets" %}</a></p>
 </form>
+{% endif %}
 {% endblock %}

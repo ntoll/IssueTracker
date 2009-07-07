@@ -222,20 +222,25 @@ def ticket(request, pk):
                 if ticket.assigned_to:
                     assign_dict = {'assign-assignee': ticket.assigned_to.id}
                 assignform = AssignForm(assign_dict, prefix="assign")
+                stateform = StateForm(
+                    prefix="state", 
+                    workflow_manager=ticket.workflow_manager
+                    )
         elif "assign" in request.POST:
             if assignform.is_valid():
-                ticket.assigned_to = assignform.cleaned_data['assignee']
+                u = assignform.cleaned_data['assignee']
+                ticket.assigned_to = u 
                 ticket.save()
                 r = Role.objects.get(id=settings.ROLE_ASSIGNEE)
-                p = Participant.objects.get(user=request.user, 
+                p = Participant.objects.filter(user=u, 
                         workflowmanager=ticket.workflow_manager)
-                if p:
-                    p.role=r
-                    p.save()
+                if len(p)==1:
+                    p[0].role=r
+                    p[0].save()
                 else:
                     p = Participant(
                         role=r, 
-                        user=request.user,
+                        user=u,
                         workflowmanager=ticket.workflow_manager
                         )
                     p.save()
