@@ -202,8 +202,10 @@ def ticket(request, pk):
     return render_to_response('ticket.html', c)
 
 @login_required
-def my_tickets(request, pk):
+def my_tickets(request, *args):
     """
     Display all tickets involving this user
     """
-    pass
+    results = Ticket.objects.filter(workflow_manager__participants__user=request.user)
+    c = RequestContext(request, {'results': results})
+    return render_to_response('my_tickets.html', c)

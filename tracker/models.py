@@ -85,7 +85,7 @@ class Ticket(models.Model):
             )
 
     def __unicode__(self):
-        return self.name
+        return self.summary
 
     def save(self):
         if self.id == None:

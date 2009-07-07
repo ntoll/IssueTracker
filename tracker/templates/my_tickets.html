@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'My Tickets'%}{% endblock %}
+{% block content %}
+<h2>{% trans "My Tickets" %}</h2>
+{% if results %}
+<table>
+    <tr>
+        <th scope="column">{% trans "Ticket Number" %}</th>
+        <th scope="column">{% trans "Ticket Type" %}</th>
+        <th scope="column">{% trans "Summary" %}</th>
+        <th scope="column">{% trans "Created on" %}</th>
+        <th scope="column">{% trans "Created by" %}</th>
+        <th scope="column">{% trans "Current State" %}</th>
+        <th>&nbsp;</th>
+    </tr>
+    {% for item in results %}
+    <tr>
+        <td>{{item.id}}</td>
+        <td>{{item.ticket_type}}</td>
+        <td>{{item.summary}}</td>
+        <td>{{item.created_on|date:"D d M Y"}}</td>
+        <td>{{item.created_by.get_full_name}}</td>
+        <td>{{item.workflow_manager.current_state}}</td>
+        <td><a href="/ticket/{{item.id}}">{% trans "View" %}</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p><big><strong><span class="red">{% blocktrans %}
+You don't appear to be associated with any tickets at this moment in time.
+Please try again later.
+{% endblocktrans %}</span></strong></big></p>
+{% endif %}
+{% endblock %}
