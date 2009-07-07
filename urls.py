@@ -7,14 +7,14 @@ from django.views.generic.simple import direct_to_template
 admin.autodiscover()
 
 # Project
-from IssueTracker.tracker.views import password_done, register
+from IssueTracker.tracker.views import password_done, register, home
 
 urlpatterns = patterns('',
     (r'^tickets/', include('IssueTracker.tracker.urls')),
+    (r'^ticket/', include('IssueTracker.tracker.urls')),
     (r'^workflow/', include('IssueTracker.workflow.urls')),
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^admin/(.*)', admin.site.root),
-    (r'^$', direct_to_template, {'template': 'home.html'}),
     (r'^faq$', direct_to_template, {'template': 'faq.html'}),
     (r'^login$', 'django.contrib.auth.views.login', 
         {'template_name':'login.html'}),
@@ -36,6 +36,7 @@ urlpatterns = patterns('',
     (r'^password_done$', password_done),
     (r'^signup$', register),
     (r'^signup_done$', direct_to_template, {'template': 'signup_done.html'}),
+    (r'^$', home),
 )
 
 if settings.DEBUG:

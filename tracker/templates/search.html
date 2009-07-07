@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Search'%}{% endblock %}
+{% block javascript_includes %}
+<script src="/static/javascript/jquery.autocomplete.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $("#id_searchbox").autocomplete('/tickets/ajax/search/');
+</script>
+{% endblock %}
+{% block jquery_ready %}
+$("#id_searchbox").focus();
+{% endblock %}
+{% block content %}
+<h2>{% trans "Search for Issues" %}</h2>
+<form method="POST" action="/tickets/search">
+    <p>
+    {{form.searchbox.errors}}
+    {{form.searchbox.label_tag}} {{form.searchbox}}
+    <input type="submit" value="{% trans 'Search' %}" />
+    </p>
+</form>
+{% if results %}
+<h2>{% trans "Results" %}</h2>
+<table>
+    <tr>
+        <th scope="column">{% trans "Ticket Number" %}</th>
+        <th scope="column">{% trans "Ticket Type" %}</th>
+        <th scope="column">{% trans "Summary" %}</th>
+        <th scope="column">{% trans "Created on" %}</th>
+        <th scope="column">{% trans "Created by" %}</th>
+        <th scope="column">{% trans "Current State" %}</th>
+        <th>&nbsp;</th>
+    </tr>
+    {% for item in results %}
+    <tr>
+        <td>{{item.id}}</td>
+        <td>{{item.ticket_type}}</td>
+        <td>{{item.summary}}</td>
+        <td>{{item.created_on|date:"D d M Y"}}</td>
+        <td>{{item.created_by.get_full_name}}</td>
+        <td>{{item.workflow_manager.current_state}}</td>
+        <td><a href="/ticket/{{item.id}}">{% trans "View" %}</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p><big><strong><span class="red">{% blocktrans %}
+Unable to find any matching results. Please try again and use different search
+terms.
+{% endblocktrans %}</span></strong></big></p>
+{% endif %}
+{% endblock %}

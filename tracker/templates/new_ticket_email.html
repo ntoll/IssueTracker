@@ -1,0 +1,14 @@
+{% load i18n %}
+{% blocktrans %}You're receiving this automated e-mail because you have 
+recently submitted a new ticket at the IssueTracker site.{%endblocktrans%}
+
+{% trans "Summary" %}: {{ticket.summary}}
+
+{% trans "Description" %}: {{ticket.description}}
+
+{% trans "You can view the status of this ticket at the folloiwng page:"%}
+{% block reset_link %}
+{{ protocol }}://{{ domain }}/ticket/{{ticket.id}}
+{% endblock %}
+
+{% trans "Thanks for using our site!"%}

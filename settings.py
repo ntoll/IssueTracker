@@ -103,8 +103,14 @@ LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
 
 # Registration defaults:
-REGISTRATION_USE_HTTPS = True
+REGISTRATION_USE_HTTPS = False
 REGISTRATION_EMAIL_TEMPLATE = 'register_email.html'
+NEW_TICKET_EMAIL_TEMPLATE = 'new_ticket_email.html'
+
+# Role defaults
+ROLE_SUBMITTER = 1
+ROLE_ASSIGNEE = 2
+ROLE_MANAGER = 3
 
 # Including a settings_local allows you to override these settings with
 # something more appropriate for your machine

@@ -66,10 +66,7 @@ class Ticket(models.Model):
             help_text=_('A brief summary of the ticket')
             )
     description = models.TextField(
-            _('Description'),
-            help_text=_('A full description of the ticket. If required please'\
-                    ' note how to recreate any problems or attach evidence as'\
-                    ' files.')
+            _('Description')
             )
     workflow_manager = models.ForeignKey(WorkflowManager)
     created_by = models.ForeignKey(
@@ -83,7 +80,8 @@ class Ticket(models.Model):
     assigned_to = models.ForeignKey(
             User,
             related_name='tickets_assigned',
-            limit_choices_to={'is_staff': True}
+            limit_choices_to={'is_staff': True},
+            null=True
             )
 
     def __unicode__(self):

@@ -1,8 +1,12 @@
 # -*- coding: UTF-8 -*-
+# Python
+import re
+
+# Django
 from django.contrib.auth.decorators import login_required, user_passes_test as check
 from django.contrib.auth import authenticate, login, logout
 from django.utils.translation import ugettext as _
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.utils.http import int_to_base36, base36_to_int
@@ -11,11 +15,63 @@ from django.template import RequestContext, Template, Context, loader
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect, HttpResponse
+from django.db.models import Q
 
-from forms import RegistrationForm
+# Project
+from forms import RegistrationForm, SearchForm, TicketForm
+from models import Ticket, TicketType
+from workflow.models import Workflow, Role, Participant, WorkflowManager 
 
+###################
+# Utility functions
+###################
+def find_tickets(searchstring):
+    """ Given a search string will build an appropriate query to find the
+    user(s) that match."""
+    rex = re.compile(r'\W')
+    normalised = rex.sub(' ', searchstring)
+    if normalised:
+        terms = normalised.split()
+        query = Ticket.objects
+        for t in terms:
+            # lets try to build a Q object for all the terms
+            query = query.filter(
+                        Q(summary__icontains=t) | 
+                        Q(description__icontains=t)
+                        )
+        return query
+    return []
+
+###############
+# Ajax handlers
+###############
+@login_required
+def ajax_ticket_list(request):
+    """ Returns a list of matching assessors where their username or email
+    address matches the query in the get url. Based on the examples at:
+    http://docs.jquery.com/Plugins/Autocomplete
+    """
+    limit = 20 
+    search_string = request.GET.get('q', None)
+    results = ""
+    if search_string:
+        instances = find_tickets(search_string)[:limit]
+        for item in instances:
+            results += "%s\n"%(item.summary.strip())
+    return HttpResponse(results, mimetype='text/plain')
+
+##################
+# Request handlers
+##################
 def home(request, *arg):
-    return render_to_response('base.html')
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            pass
+    else:
+        form = SearchForm()
+    c = RequestContext(request, {'form': form})
+    return render_to_response('home.html', c)
 
 def register(request, *arg):
     """ Takes care of the registration process"""
@@ -63,3 +119,91 @@ def password_done(request, *arg):
         " successfully updated."))
     return HttpResponseRedirect('/')
 
+@login_required
+def search(request, *arg):
+    """
+    Returns the result of a search
+    """
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        results = []
+        if form.is_valid():
+            search_string = form.cleaned_data['searchbox']
+            if search_string:
+                results = find_tickets(search_string)
+    else:
+        form = SearchForm()
+        results = []
+    c = RequestContext(request, {'form': form, 'results': results})
+    return render_to_response('search.html', c) 
+
+@login_required
+def new_ticket(request, *arg):
+    """
+    For generating new tickets
+    """
+    if request.method == 'POST':
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            t = Ticket()
+            t.ticket_type = form.cleaned_data['ticket_type']
+            t.project = form.cleaned_data['project']
+            t.component = form.cleaned_data['component']
+            t.summary = form.cleaned_data['summary']
+            t.description = form.cleaned_data['description']
+            t.created_by = request.user
+            t.updated_by = request.user
+            # workflow related stuff
+            ticket_type = t.ticket_type
+            wm = WorkflowManager()
+            wm.workflow = ticket_type.workflow
+            wm.created_by = request.user
+            wm.save()
+            r = Role.objects.get(id=settings.ROLE_SUBMITTER)
+            p = Participant()
+            p.user = request.user
+            p.role = r
+            p.workflowmanager=wm
+            p.save()
+            t.workflow_manager=wm
+            t.save()
+            wm.start(p)
+            # Generates a confirmation email to send to the new user
+            current_site = Site.objects.get_current() 
+            site_name = current_site.name
+            domain = current_site.domain
+            tplt = loader.get_template(settings.NEW_TICKET_EMAIL_TEMPLATE)
+            c = {
+                'email': request.user.email,
+                'domain': domain,
+                'site_name': site_name,
+                'user': request.user,
+                'protocol': settings.REGISTRATION_USE_HTTPS and 'https' or 'http',
+                'ticket': t,
+            }
+            send_mail(_("Confirmation of new ticket on IssueTracker"),
+                tplt.render(Context(c)), None, [request.user.email])
+            
+            request.user.message_set.create(message=_("The ticket has been"\
+                    " successfully created."))
+            return HttpResponseRedirect('/ticket/%d'%t.id)
+    else:
+        form = TicketForm()
+    c = RequestContext(request, {'form': form})
+    return render_to_response('new.html', c) 
+
+@login_required
+def ticket(request, pk):
+    """
+    View a ticket
+    """
+    ticket = get_object_or_404(Ticket, id=pk)
+    c = RequestContext(request, {'ticket': ticket})
+    return render_to_response('ticket.html', c)
+
+@login_required
+def my_tickets(request, pk):
+    """
+    Display all tickets involving this user
+    """
+    pass

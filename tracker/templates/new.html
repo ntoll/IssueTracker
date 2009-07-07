@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'New Ticket'%}{% endblock %}
+{% block jquery_ready %}
+$("#id_ticket_type").focus();
+{% endblock %}
+{% block content %}
+<h1>{% trans "New Ticket" %}</h1>
+<p>{% blocktrans %}
+To report an issue create a new ticket by filling in the form below. Please
+provide as much information as possible. It is helpful is you:
+{% endblocktrans %}</p>
+<ul>
+    <li>{% trans "Explain how to recreate any problems" %}</li>
+    <li>{% trans "Describe what actually happens vs. what you expect" %}</li>
+    <li>{% trans "Identify exactly what the issue is about. Be specific" %}</li>
+    <li>{% trans "Provide a justification for any enhancements" %}</li>
+</ul>
+<form method="POST" action="/tickets/new">
+    {{form.as_p}}
+    <p><input type="submit" value="{% trans 'Create' %}" /> |
+    <a href="/">{% trans "Home" %}</p>
+</form>
+{% endblock %}

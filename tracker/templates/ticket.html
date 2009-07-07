@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'View Ticket'%}{% endblock %}
+{% block jquery_ready %}
+$("#id_ticket_type").focus();
+{% endblock %}
+{% block content %}
+<h1>{{ticket.summary}}</h1>
+<p>{{ticket.description}}</p>
+{% endblock %}

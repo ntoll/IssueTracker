@@ -3,6 +3,8 @@ from django import forms
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 
+from models import Ticket
+
 class RegistrationForm(forms.Form):
     """ For user registration"""
     username = forms.CharField(max_length=30,
@@ -41,3 +43,25 @@ class RegistrationForm(forms.Form):
             raise forms.ValidationError(_("The two password fields didn't"\
                     " match.")) 
         return password2
+
+class SearchForm(forms.Form):
+    """
+    For searching for tickets
+    """
+    searchbox = forms.CharField(max_length=256,
+            widget=forms.TextInput(attrs={'class':'focus', 'size':'55'}),
+            label='Search (use keywords)',
+            required=True,
+            error_messages={ 
+                'required': _('Please enter something to search for') 
+                }
+            )
+
+class TicketForm(forms.ModelForm):
+    """
+    For creating new tickets
+    """
+    class Meta:
+        model = Ticket
+        exclude = ('workflow_manager', 'created_by', 'created_on', 'updated_by',
+                'updated_on', 'assigned_to')

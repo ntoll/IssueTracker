@@ -12,11 +12,15 @@ em {
 strong {
     color:#111111;
 }
-textarea, input {
+textarea, input, select {
     font-family:arial,sans;
     font-size:1em;
 }
 form label {
+    float:left;
+    margin-left:2em;
+    padding-top:0.4em;
+    width:20%;
     font-weight: bold;
     padding-right: 10px;
     clear: both;
@@ -128,4 +132,55 @@ h1, h2, h3, h4, h5, h6 {
     margin:8px 8px 0;
     padding:2px;
     text-align:center;
+}
+
+/*
+Autocomplete class definitions
+*/
+.ac_results {
+    padding: 0px;
+    border: 1px solid WindowFrame;
+    background-color: Window;
+    overflow: hidden;
+    text-align:left;
+}
+
+.ac_results ul {
+    width: 100%;
+    list-style-position: outside;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ac_results iframe {
+    display:none;/*sorry for IE5*/
+    display/**/:block;/*sorry for IE5*/
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:-1;
+    filter:mask();
+    width:3000px;
+    height:3000px;
+}
+
+.ac_results li {
+    margin: 0px;
+    padding: 2px 5px;
+    cursor: pointer;
+    display: block;
+    /*width: 100%;*/
+    font: menu;
+    font-size: 12px;
+    overflow: hidden;
+}
+
+.ac_loading {
+    background:Window url('/static/images/indicator.gif') right center no-repeat;
+}
+
+.ac_over {
+    background-color:Highlight;
+    color:HighlightText;
 }
