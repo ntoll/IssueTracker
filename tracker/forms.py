@@ -65,3 +65,23 @@ class TicketForm(forms.ModelForm):
         model = Ticket
         exclude = ('workflow_manager', 'created_by', 'created_on', 'updated_by',
                 'updated_on', 'assigned_to')
+
+class AssignForm(forms.Form):
+    """
+    For selecting who to assign the ticket to
+    """
+    assignee = forms.ModelChoiceField(
+            queryset = User.objects.filter(is_staff=True)
+            )
+
+class StateForm(forms.Form):
+    """
+    For selecting the next state to move to in the workflow
+    """
+    def __init__(self, *args, **kwargs):
+        wm = kwargs['workflow_manager']
+        del kwargs['workflow_manager']
+        super(StateForm, self).__init__(*args, **kwargs)
+        self.fields['transition'].queryset = wm.current_state().state.transitions_from.all()
+
+    transition = forms.ModelChoiceField(queryset = None) 

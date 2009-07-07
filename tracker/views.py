@@ -18,7 +18,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.db.models import Q
 
 # Project
-from forms import RegistrationForm, SearchForm, TicketForm
+from forms import RegistrationForm, SearchForm, TicketForm, AssignForm, StateForm
 from models import Ticket, TicketType
 from workflow.models import Workflow, Role, Participant, WorkflowManager 
 
@@ -198,7 +198,63 @@ def ticket(request, pk):
     View a ticket
     """
     ticket = get_object_or_404(Ticket, id=pk)
-    c = RequestContext(request, {'ticket': ticket})
+    if request.method == 'POST':
+        assignform = AssignForm(request.POST, prefix="assign")
+        stateform = StateForm(
+                request.POST, 
+                prefix="state",
+                workflow_manager=ticket.workflow_manager
+                )
+        if "change" in request.POST:
+            if stateform.is_valid():
+                transition = stateform.cleaned_data['transition']
+                p = Participant.objects.get(
+                    user=request.user,
+                    workflowmanager=ticket.workflow_manager
+                    )
+                ticket.workflow_manager.progress(
+                        transition,
+                        p
+                        )
+                request.user.message_set.create(message=_("The ticket has been"\
+                    " successfully transitioned to a new state.."))
+                assign_dict={}
+                if ticket.assigned_to:
+                    assign_dict = {'assign-assignee': ticket.assigned_to.id}
+                assignform = AssignForm(assign_dict, prefix="assign")
+        elif "assign" in request.POST:
+            if assignform.is_valid():
+                ticket.assigned_to = assignform.cleaned_data['assignee']
+                ticket.save()
+                r = Role.objects.get(id=settings.ROLE_ASSIGNEE)
+                p = Participant.objects.get(user=request.user, 
+                        workflowmanager=ticket.workflow_manager)
+                if p:
+                    p.role=r
+                    p.save()
+                else:
+                    p = Participant(
+                        role=r, 
+                        user=request.user,
+                        workflowmanager=ticket.workflow_manager
+                        )
+                    p.save()
+                request.user.message_set.create(message=_("The ticket has been"\
+                    " successfully re-assigned."))
+    else:
+        assign_dict={}
+        if ticket.assigned_to:
+            assign_dict = {'assign-assignee': ticket.assigned_to.id}
+        assignform = AssignForm(assign_dict, prefix="assign")
+        stateform = StateForm(
+                prefix="state", 
+                workflow_manager=ticket.workflow_manager
+                )
+    c = RequestContext(request, {
+        'ticket': ticket,
+        'assignform': assignform,
+        'stateform': stateform,
+        })
     return render_to_response('ticket.html', c)
 
 @login_required
