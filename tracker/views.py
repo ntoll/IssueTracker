@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.utils.translation import ugettext as _
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.models import User
+from django.contrib.comments.models import Comment
+from django.db.models.signals import pre_save
 from django.conf import settings
 from django.utils.http import int_to_base36, base36_to_int
 from django.contrib.sites.models import Site, RequestSite
@@ -21,6 +23,21 @@ from django.db.models import Q
 from forms import RegistrationForm, SearchForm, TicketForm, AssignForm, StateForm
 from models import Ticket, TicketType
 from workflow.models import Workflow, Role, Participant, WorkflowManager 
+
+#################
+# Signal Handlers
+#################
+def comment_handler(sender, **kwargs):
+    """
+    Used to log the comment as an event in a workflow manager's history
+    """
+    # TODO: Finish this
+    i = kwargs['instance']
+    if i.content_type == "Ticket":
+        t = Ticket.objects.get(id=i.object_pk)
+
+
+pre_save.connect(comment_handler, sender=Comment)
 
 ###################
 # Utility functions

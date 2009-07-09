@@ -24,7 +24,10 @@ class ModelTestCase(TestCase):
         # Reference fixtures here
         fixtures = ['project_test_data']
 
-        def test_something(self):
-            pass
+        def test_project__unicode__(self):
+            p = Project.objects.get(id=1)
+            self.assertEqual(u'Project X', p.__unicode__())
 
-
+        def test_component__unicode__(self):
+            c = Component.objects.get(id=1)
+            self.assertEqual(u'Merlin Workflow Engine', c.__unicode__())

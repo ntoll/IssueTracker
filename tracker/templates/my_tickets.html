@@ -21,7 +21,7 @@
         <td>{{item.summary}}</td>
         <td>{{item.created_on|date:"D d M Y"}}</td>
         <td>{{item.created_by.get_full_name}}</td>
-        <td>{{item.workflow_manager.current_state}}</td>
+        <td>{{item.workflow_manager.current_state.state}}</td>
         <td><a href="/ticket/{{item.id}}">{% trans "View" %}</a></td>
     </tr>
     {% endfor %}

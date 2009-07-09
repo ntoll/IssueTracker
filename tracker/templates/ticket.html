@@ -7,7 +7,8 @@ $("#id_ticket_type").focus();
 {% endblock %}
 {% block content %}
 <p><strong>{% trans "Ticket Number:" %}</strong> {{ticket.id}}
-<strong>{% trans "Current State:" %}</strong> {{ticket.workflow_manager.current_state}}</p>
+<strong>{% trans "Current State:" %}</strong>
+{{ticket.workflow_manager.current_state.state}}</p>
 {% if ticket.workflow_manager.completed_on %}
 <p><span class="red">{% trans "Completed on:"%} 
     {{ticket.workflow_manager.completed_on|date:" D d M Y"}}</span></p>

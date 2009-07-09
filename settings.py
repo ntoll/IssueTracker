@@ -112,6 +112,13 @@ ROLE_SUBMITTER = 1
 ROLE_ASSIGNEE = 3 
 ROLE_MANAGER = 2
 
+# Specify your custom test runner to use
+TEST_RUNNER='workflow.test_runner.test_runner_with_coverage'
+
+# List of modules to enable for code coverage
+COVERAGE_MODULES = ['workflow.models', 'workflow.views', 'project.models',
+        'tracker.models', 'tracker.forms', 'tracker.views']
+
 # Including a settings_local allows you to override these settings with
 # something more appropriate for your machine
 try:
