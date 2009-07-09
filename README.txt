@@ -17,7 +17,7 @@ Quickstart guide:
 3) git submodule init
 4) git submodule update
 5) ./manage.py syncdb (if you want to use the test examples answer 'no' when
-asked about defining superusers
+asked about defining superusers)
 6) ./manage.py loaddata project_test_data
 7) ./email_server.sh &
 8) ./manage.py runserver
@@ -25,7 +25,7 @@ asked about defining superusers
 
 If you executed step 6 then there are five users you can play with:
 
-admin (the admin user)
+admin (the admin user - obviously)
 alice 
 bob
 charlie
@@ -45,6 +45,7 @@ example:
 
 http://localhost:8000/workflow/feature_request_handler.png
 
-(If you have the test examples loaded)
+(If you have the test examples loaded - the filename is the workflow's slug
+field)
 
 As always, comments, suggestions and feedback most welcome.
