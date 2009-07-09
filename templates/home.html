@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block title %}{% trans 'Home'%}{% endblock %}
+{% block css_includes %}
+<style type="text/css" media="screen, projection">
+@import url(/static/css/jq_fade.css);
+</style>
+{% endblock %}
 {% block javascript_includes %}
 {% if user.is_authenticated %}
 <script src="/static/javascript/jquery.autocomplete.js" type="text/javascript"></script>
@@ -9,9 +14,6 @@
 </script>
 {% else %}
 <script src="/static/javascript/jquery.innerfade.js" type="text/javascript"></script>
-<style type="text/css" media="screen, projection">
-@import url(/static/css/jq_fade.css);
-</style>
 {% endif %}
 {% endblock %}
 {% block jquery_ready %}
@@ -44,16 +46,16 @@ Welcome to Bugz...
     <div id="fading_images">
        <ul id="portfolio" style="list-style-type: none;">					
 					<li>
-						<a href="http://www.flickr.com/photos/chaparral/382859222/"><img src="/static/images/screen1.jpg" alt="An Example Image" /></a>
+						<a href="http://www.flickr.com/photos/chaparral/382859222/"><img src="/static/images/screen1.jpg" alt="Having issues with 'Issues'..? Confused by bug tracking..?" /></a>
 					</li>
 					<li>
-						<a href="http://www.flickr.com/photos/dotbenjamin/2765083201/"><img src="/static/images/screen2.jpg" alt="An Example Image" /></a>
+						<a href="http://www.flickr.com/photos/dotbenjamin/2765083201/"><img src="/static/images/screen2.jpg" alt="Bugz makes tracking issues EASY!" /></a>
 					</li>					
 					<li>
-						<a href="http://www.flickr.com/photos/zanastardust/2481428401/"><img src="/static/images/screen3.jpg" alt="An Example Image" /></a>
+						<a href="http://www.flickr.com/photos/zanastardust/2481428401/"><img src="/static/images/screen3.jpg" alt="Elegant &amp; Simple" /></a>
 					</li>					
 					<li>
-						<a href="http://www.flickr.com/photos/yogi/1474419777/"><img src="/static/images/screen4.jpg" alt="An Example Image" /></a>
+						<a href="http://www.flickr.com/photos/yogi/1474419777/"><img src="/static/images/screen4.jpg" alt="Keep your geeks HAPPY (use Bugz ;-)" /></a>
 					</li>		
        </ul>
    </div>
