@@ -1,10 +1,26 @@
 # -*- coding: UTF-8 -*-
+# Django
 from django import forms
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 
+# Project
 from models import Ticket
 
+###########################
+# Bespoke ModelChoice field
+###########################
+class AssigneeUserChoice(forms.ModelChoiceField):
+    """
+    Makes sure the User model returns something meaningful to the user instead
+    of the __unicode__() call.
+    """
+    def label_from_instance(self, obj):
+        return obj.get_full_name()
+
+#######
+# Forms
+#######
 class RegistrationForm(forms.Form):
     """ For user registration"""
     username = forms.CharField(max_length=30,
@@ -70,7 +86,7 @@ class AssignForm(forms.Form):
     """
     For selecting who to assign the ticket to
     """
-    assignee = forms.ModelChoiceField(
+    assignee = AssigneeUserChoice(
             queryset = User.objects.filter(is_staff=True)
             )
 
