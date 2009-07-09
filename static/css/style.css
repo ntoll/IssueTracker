@@ -117,7 +117,7 @@ h1, h2, h3, h4, h5, h6 {
 #fading_images {
     margin-left: auto;
     margin-right: auto;
-    width: 600px
+    width: 800px
 }
 /* Colour related styling */
 .red {
@@ -172,7 +172,7 @@ Autocomplete class definitions
     display: block;
     /*width: 100%;*/
     font: menu;
-    font-size: 12px;
+    font-size: 1em;
     overflow: hidden;
 }
 
@@ -183,4 +183,12 @@ Autocomplete class definitions
 .ac_over {
     background-color:Highlight;
     color:HighlightText;
+}
+
+/* Misc other styling */
+.what_next {
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    font-size: 2em;
 }

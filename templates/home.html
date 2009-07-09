@@ -41,31 +41,27 @@ Welcome to Bugz...
     </p>
 </form>
 {% else %}
-<h1>{% trans "Welcome to Bugz!" %}</h1>
     <div id="fading_images">
        <ul id="portfolio" style="list-style-type: none;">					
 					<li>
-						<a href="#"><img src="/static/images/screen1.jpg" alt="An Example Image" /></a>
+						<a href="http://www.flickr.com/photos/chaparral/382859222/"><img src="/static/images/screen1.jpg" alt="An Example Image" /></a>
 					</li>
 					<li>
-						<a href="#"><img src="/static/images/screen2.jpg" alt="An Example Image" /></a>
+						<a href="http://www.flickr.com/photos/dotbenjamin/2765083201/"><img src="/static/images/screen2.jpg" alt="An Example Image" /></a>
 					</li>					
 					<li>
-						<a href="#"><img src="/static/images/screen3.jpg" alt="An Example Image" /></a>
+						<a href="http://www.flickr.com/photos/zanastardust/2481428401/"><img src="/static/images/screen3.jpg" alt="An Example Image" /></a>
 					</li>					
 					<li>
-						<a href="#"><img src="/static/images/screen4.jpg" alt="An Example Image" /></a>
+						<a href="http://www.flickr.com/photos/yogi/1474419777/"><img src="/static/images/screen4.jpg" alt="An Example Image" /></a>
 					</li>		
        </ul>
-    </div>
-<h2>{% trans "What Next..?" %}</h2>
-<ul>
-    <li><a href="/faq">{% trans "Find out more" %}</a> - 
-    {% trans "be amazed at the Zen like simplicity" %}</li>
-    <li><a href="/signup">{% trans "Signup for an account" %}</a> -
-    {% trans "start reporting issues" %}</li>
-    <li><a href="/login">{% trans "Login" %}</a> -
-    {% trans "just report your issues..!" %}</li>
-</ul>
+   </div>
+
+<p class="what_next">
+   <a href="/signup">{% trans "Signup" %}</a> |
+   <a href="/login">{% trans "Login" %}</a> |
+   <a href="/faq">{% trans "FAQ" %}</a> 
+</p>
 {% endif %}
 {% endblock %}
