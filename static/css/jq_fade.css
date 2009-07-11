@@ -1,8 +1,11 @@
 ul#portfolio li img{
 	border: 1px solid #ccc;
-	padding: 4px;
+	padding: 0px;
 }
 
+ul#portfolio {
+    padding: 0px;
+}
 
 .fade{
 	margin-bottom: 2em;
