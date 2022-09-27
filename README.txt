@@ -1,3 +1,5 @@
+** THIS REPOSITORY HAS BEEN ARCHIVED **
+
 IssueTracker is (c) 2009 Nicholas H.Tollervey
 http://ntoll.org/contact
 
